@@ -1,0 +1,2 @@
+class EventProduct < ApplicationRecord
+end
