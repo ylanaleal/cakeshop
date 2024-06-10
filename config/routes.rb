@@ -4,34 +4,34 @@ Rails.application.routes.draw do
 
   # Users
   resources :users, only: [] do
-    resources :user_addresses, path: 'enderecos', only: [:create, :update, :edit]
-    resources :user_payments, path: 'pagamentos', only: [:create, :update, :edit, :destroy]
-    # resources :cart_items, only: [:index, :create, :update, :destroy]
+    resources :user_addresses, path: 'enderecos', only: [:new, :create, :update, :edit]
+    resources :user_payments, path: 'pagamentos', only: [:new, :create, :update, :edit, :destroy]
+    resources :cart_items, only: [:index, :new, :create, :edit, :update, :destroy]
   end
 
   # Lead Events
   resources :lead_events, only: [:new, :create]
 
-  # # Products
-  # resources :products do
+  # Products
+  resources :products, except: [:index]
+  # do
   #   resources :order_items, only: [:index, :create, :update, :destroy]
   # end
 
   # Event Products
   resources :event_products, only: [:new, :create, :edit, :update, :destroy]
 
-  # # Product Categories
-  # resources :product_categories
+  # Product Categories
+  resources :product_categories, only: [:new, :create, :edit, :update, :destroy]
 
-  # # Product Inventories
-  # resources :product_inventories
+  # Product Inventories
+  resources :product_inventories, only: [:new, :create, :edit, :update]
 
-  # # Orders
-  # resources :orders do
-  #   resources :order_items, only: [:index, :create, :update, :destroy]
-  #   resources :payments, only: [:create, :update, :destroy]
-  # end
+  # Orders
+  resources :orders do
+    resources :order_items, only: [:index, :new, :create]
+    resources :payments, only: [:new, :create, :edit, :update, :destroy]
+  end
 
   get "up" => "rails/health#show", as: :rails_health_check
-
 end

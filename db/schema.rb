@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_10_003508) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_10_230619) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cart_items", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "quantity"
+    t.bigint "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_cart_items_on_product_id"
+    t.index ["user_id"], name: "index_cart_items_on_user_id"
+  end
 
   create_table "event_products", force: :cascade do |t|
     t.string "name"
@@ -36,6 +46,49 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_10_003508) do
     t.datetime "updated_at", null: false
     t.index ["event_product_id"], name: "index_lead_events_on_event_product_id"
     t.index ["user_id"], name: "index_lead_events_on_user_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "total"
+    t.bigint "payment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payment_id"], name: "index_orders_on_payment_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.integer "amount"
+    t.string "provider"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_categories", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_inventories", force: :cascade do |t|
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "price"
+    t.bigint "product_category_id", null: false
+    t.bigint "product_inventory_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_category_id"], name: "index_products_on_product_category_id"
+    t.index ["product_inventory_id"], name: "index_products_on_product_inventory_id"
   end
 
   create_table "user_addresses", force: :cascade do |t|
@@ -72,6 +125,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_10_003508) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "cart_items", "products"
+  add_foreign_key "cart_items", "users"
   add_foreign_key "lead_events", "event_products"
   add_foreign_key "lead_events", "users"
+  add_foreign_key "orders", "payments"
+  add_foreign_key "orders", "users"
+  add_foreign_key "products", "product_categories"
+  add_foreign_key "products", "product_inventories"
 end
