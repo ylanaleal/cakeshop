@@ -1,0 +1,26 @@
+<h2>Doces</h2>
+<h3><%= @product.name %></h3>
+<p>$<%= @product.price %></p>
+<p><%= @product.description %></p>
+<button id="decrease">-</button>
+<input type="text" id="quantity" value="1" readonly>
+<button id="increase">+</button>
+<button class="add-to-cart">Adicionar ao carrinho</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const increaseButton = document.getElementById('increase');
+    const decreaseButton = document.getElementById('decrease');
+    const quantityInput = document.getElementById('quantity');
+
+    increaseButton.addEventListener('click', function() {
+      quantityInput.value = parseInt(quantityInput.value) + 1;
+    });
+
+    decreaseButton.addEventListener('click', function() {
+      if (parseInt(quantityInput.value) > 1) {
+        quantityInput.value = parseInt(quantityInput.value) - 1;
+      }
+    });
+  });
+</script>
