@@ -14,7 +14,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     respond_to do |format|
-      if params[:confirm_and_new].present? && @event_product.save!
+      if params[:confirm_and_new].present? && @product.save!
         format.html { redirect_to new_product_path, notice: 'Produto criado com sucesso' }
       elsif @product.save!
         format.html { redirect_to user_profile_path, notice: 'Produto criado com sucesso.' }
@@ -29,7 +29,7 @@ class ProductsController < ApplicationController
 
   def update
     if product.update(product_params)
-      redirect_to user_profile_path
+      redirect_to user_profile_path, notice: 'Produto atualizado com sucesso.'
     else
       render :edit
     end
@@ -46,7 +46,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :description, :price, :product_category_id, :product_inventory_id)
+    params.require(:product).permit(:name, :description, :price, :product_category_id)
   end
 
   def set_product

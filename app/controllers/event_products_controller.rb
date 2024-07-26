@@ -23,13 +23,19 @@ class EventProductsController < ApplicationController
   end
 
   def update
-    @event_product.update(event_product_params)
-    redirect_to root_path
+    if @event_product.update!(event_product_params)
+      redirect_to user_profile_path, notice: 'Produto atualizado com sucesso.'
+    else
+      redirect_to request.referer, notice: 'Não foi possível atualizar o produto.'
+    end
   end
 
   def destroy
-    @event_product.destroy
-    redirect_to user_profile_path
+    if @event_product.destroy
+      redirect_to user_profile_path, notice: 'Produto deletado com sucesso.'
+    else
+      redirect_to request.referer, notice: 'Não foi possível deletar o produto.'
+    end
   end
 
   private

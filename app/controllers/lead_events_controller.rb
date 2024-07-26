@@ -5,6 +5,8 @@ class LeadEventsController < ApplicationController
 
   def create
     @lead_event = LeadEvent.new(lead_event_params)
+    @lead_event.user = current_user if current_user
+
     if @lead_event.save
       redirect_to root_path, notice: "Obrigado por se inscrever!"
     else
