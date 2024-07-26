@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[edit update]
+  before_action :set_product, only: %i[edit update destroy]
   before_action :authenticate_user!
 
   def show
@@ -11,11 +11,16 @@ class ProductsController < ApplicationController
   end
 
   def create
-    product = Product.new(product_params)
-    if product.save
-      redirect_to root_path
-    else
-      render :new
+    @product = Product.new(product_params)
+
+    respond_to do |format|
+      if params[:confirm_and_new].present? && @event_product.save!
+        format.html { redirect_to new_product_path, notice: 'Produto criado com sucesso' }
+      elsif @product.save!
+        format.html { redirect_to user_profile_path, notice: 'Produto criado com sucesso.' }
+      else
+        render :new
+      end
     end
   end
 
@@ -24,15 +29,18 @@ class ProductsController < ApplicationController
 
   def update
     if product.update(product_params)
-      redirect_to root_path
+      redirect_to user_profile_path
     else
       render :edit
     end
   end
 
   def destroy
-    @product.destroy
-    redirect_to root_path
+    if @product.destroy
+      redirect_to user_profile_path, notice: 'Produto deletado com sucesso.'
+    else
+      redirect_to request.referer, notice: 'Não foi possível deletar o produto.'
+    end
   end
 
   private

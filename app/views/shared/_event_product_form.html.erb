@@ -1,0 +1,17 @@
+<%= simple_form_for(@event_product) do |f| %>
+  <div class="form-inputs scroll-form">
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+    <%= f.input :name, label: 'Nome do(a) produto' %>
+    <%= f.input :event_product_type, label: 'Tipo do produto' %>
+  </div>
+
+  <div class="form-actions mb-4">
+    <%= f.submit "Salvar", class: "btn btn-dark shadow-sm rounded-3" %>
+    <% if controller_name == 'event_products' && action_name != 'edit' %>
+      <%= f.submit "Salvar e criar novo produto", class: "btn btn-dark shadow-sm rounded-3", name: "confirm_and_new" %>
+    <% end %>
+    <%= link_to 'Voltar', user_profile_path, class: "btn btn-dark shadow-sm rounded-3" %>
+  </div>
+<% end %>
