@@ -1,5 +1,5 @@
 class LeadEvent < ApplicationRecord
-  has_one :event_product
+  belongs_to :event_product
   belongs_to :user, optional: true
 
   validates :event_type, presence: true

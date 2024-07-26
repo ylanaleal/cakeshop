@@ -28,7 +28,7 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if product.update(product_params)
+    if @product.update(product_params)
       redirect_to user_profile_path, notice: 'Produto atualizado com sucesso.'
     else
       render :edit

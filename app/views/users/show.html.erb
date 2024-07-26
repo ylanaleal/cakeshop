@@ -34,4 +34,14 @@
     <% end %>
   </div>
 </div>
+<% else %>
+  <% @orders.each do |order| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title text-center">Pedido: <%= order.id %></h5>
+        <p class="card-text text-center">Total: <%= order.formatted_total %></p>
+        <p class="card-text text-center">Produtos: <%= order.order_items %></p>
+      </div>
+    </div>
+  <% end %>
 <% end %>
