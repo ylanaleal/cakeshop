@@ -1,0 +1,18 @@
+<h2>Doces</h2>
+<% if @product.photo.attached? %>
+  <%= cl_image_tag @product.photo.key, crop: :fill, class: "avatar" %>
+<% else %>
+  <%= image_tag "Logo.jpg", class: "avatar" %>
+<% end %>
+<h3><%= @product.name %></h3>
+<p>$<%= @product.price %></p>
+<p><%= @product.description %></p>
+
+<div data-controller="count">
+  <button id="decrease" data-action="click->count#decrease">-</button>
+  <input type="text" id="quantity" data-count-target="quantity" value="1" readonly>
+  <button id="increase" data-action="click->count#increase">+</button>
+</div>
+
+<button class="add-to-cart">Adicionar ao carrinho</button>
+<button class="buy-now">Comprar</button>

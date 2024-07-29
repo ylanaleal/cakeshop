@@ -1,0 +1,14 @@
+<h2>Doces</h2>
+  <% @products.each do |product| %>
+     <div class="card-product">
+        <div class="photo-name d-flex align-items-center">
+        <% if product.photo.attached? %>
+          <%= cl_image_tag product.photo.key, crop: :fill, class: "avatar" %>
+        <% else %>
+          <%= image_tag "Logo.jpg", class: "avatar" %>
+        <% end %>
+        <h3><%= link_to "#{product.name}", product_path(product) %></h3>
+        </div>
+        <p>$<%= product.price %></p>
+      </div>
+  <% end %>
