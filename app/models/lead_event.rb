@@ -11,4 +11,16 @@ class LeadEvent < ApplicationRecord
   validates :full_name, presence: true
   validates :email, presence: true
   validates :phone, presence: true
+
+  def self.ransackable_attributes(_auth_object = nil)
+    ["created_at", "email", "event_date", "event_product_id", "event_type", "full_name", "guest_number", "id", "id_value", "phone", "product_quantity", "theme", "updated_at", "user_id"]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    ["event_product", "user"]
+  end
+
+  def formatted_event_date
+    event_date.strftime("%B %d, %Y")
+  end
 end
