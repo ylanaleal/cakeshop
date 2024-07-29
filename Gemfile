@@ -46,10 +46,14 @@ gem "bootsnap", require: false
 
 gem "bootstrap", "~> 5.2"
 gem "devise"
+gem "devise-i18n"
+gem "rails-i18n"
 gem "autoprefixer-rails"
 gem "font-awesome-sass", "~> 6.1"
 gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
+gem 'activeadmin'
+gem 'inherited_resources'
 gem "pundit"
 
 group :development, :test do

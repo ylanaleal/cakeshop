@@ -1,2 +1,0 @@
-class ProductInventory < ApplicationRecord
-end
