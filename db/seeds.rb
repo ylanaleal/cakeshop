@@ -1,6 +1,22 @@
 # Assuming you have predefined categories and inventories
-default_category = ProductCategory.find_or_create_by!(name: "Sweets")
 # default_inventory = ProductInventory.find_or_create_by!(quantity: 100)
+
+# Destroy all previous records
+EventProduct.destroy_all
+Product.destroy_all
+ProductCategory.destroy_all
+User.destroy_all
+
+default_category = ProductCategory.create(name: "Brigadeiros")
+
+user = User.create!(
+  first_name: 'Camila',
+  last_name: 'Kobashi',
+  email: 'admin@cakeshop.com',
+  phone: "1111111111",
+  password: 'flamengo',
+  admin: true)
+user.save!
 
 # Create doces
 # Brigadeiro com granulado
