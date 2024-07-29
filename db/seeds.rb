@@ -1,6 +1,6 @@
 # Assuming you have predefined categories and inventories
 default_category = ProductCategory.find_or_create_by!(name: "Sweets")
-default_inventory = ProductInventory.find_or_create_by!(quantity: 100)
+# default_inventory = ProductInventory.find_or_create_by!(quantity: 100)
 
 # Create doces
 # Brigadeiro com granulado
@@ -9,7 +9,7 @@ sweet1 = Product.new(
   description: "redondo com granulado",
   price: 5,
   product_category: default_category,
-  product_inventory: default_inventory
+  # product_inventory: default_inventory
 )
 sweet1.save!
 
@@ -19,7 +19,7 @@ sweet2 = Product.new(
   description: "todo bicho tem pé",
   price: 15,
   product_category: default_category,
-  product_inventory: default_inventory
+  # product_inventory: default_inventory
 )
 sweet2.save!
 
@@ -29,7 +29,7 @@ sweet3 = Product.new(
   description: "sou casado",
   price: 25,
   product_category: default_category,
-  product_inventory: default_inventory
+  # product_inventory: default_inventory
 )
 sweet3.save!
 
@@ -39,6 +39,6 @@ sweet4 = Product.new(
   description: "para criar um climão",
   price: 35,
   product_category: default_category,
-  product_inventory: default_inventory
+  # product_inventory: default_inventory
 )
 sweet4.save!
