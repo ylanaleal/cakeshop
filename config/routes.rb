@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   resources :lead_events, only: %i[new create]
 
   # Products
-  resources :products, except: %i[index]
+
+  resources :products
   # do
   #   resources :order_items, only: [:index, :create, :update, :destroy]
   # end

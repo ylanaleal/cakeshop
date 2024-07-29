@@ -2,6 +2,7 @@ class Product < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
   belongs_to :product_category
+  has_one_attached :photo
 
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true

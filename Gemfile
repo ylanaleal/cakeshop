@@ -54,6 +54,7 @@ gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
 gem 'activeadmin'
 gem 'inherited_resources'
+gem "pundit"
 
 group :development, :test do
   gem "dotenv-rails"
