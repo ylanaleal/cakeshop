@@ -2,7 +2,7 @@
       <section class="form-section">
         <h2>Kit Festa</h2>
         <p>Preencha o formulário com as informações do seu evento que entraremos em contato</p>
-        <%= form_with url: '#', method: :post do %>
+        <%= form_with url: lead_events_path, method: :post do %>
           <div class="form-group">
             <label for="event_type">Tipo de Evento</label>
             <%= text_field_tag :event_type, nil, placeholder: "aniversário, chá de bebe, etc" %>
@@ -13,7 +13,7 @@
           </div>
           <div class="form-group">
             <label for="number_of_people">Número de Pessoas</label>
-            <%= number_field_tag :number_of_people, nil %>
+            <%= number_field_tag :number_of_people, nil, min: 0 %>
           </div>
           <div class="form-group">
             <label for="theme">Tema</label>
@@ -23,10 +23,20 @@
             <label for="color">Cor</label>
             <%= text_field_tag :color, nil, placeholder: "cor primária do evento" %>
           </div>
+
+          <h3>Quais doces você gostaria de ter na festa e quantos</h3>
+          <% sweets = ['maçã decorada', 'trufa decorada', 'porta retrato de chocolate', 'mini bolinho de 2 andares', 'bem casado', 'bala de coco', 'biscoito', 'pão de mel', 'pirulito de chocolate', 'cakepop', 'cupcake'] %>
+          <% sweets.each do |sweet| %>
+            <div class="form-group">
+              <label for="<%= sweet.parameterize %>"><%= sweet.capitalize %></label>
+              <%= number_field_tag sweet.parameterize, nil, placeholder: "Quantidade", min: 0 %>
+            </div>
+          <% end %>
+
           <div class="form-actions">
-            <%= submit_tag 'Enviar evento' %>
             <%= link_to 'Voltar', root_path, class: 'btn btn-secondary' %>
+            <%= submit_tag 'Enviar' %>
           </div>
         <% end %>
       </section>
-</main>
+    </main>
