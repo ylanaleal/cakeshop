@@ -1,0 +1,30 @@
+<h2>Meu Carrinho</h2>
+
+<% if @cart_items.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Produto</th>
+        <th>Quantidade</th>
+        <th>Preço</th>
+        <th>Total</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart_items.each do |item| %>
+        <tr>
+          <td><%= item.product.name %></td>
+          <td><%= item.quantity %></td>
+          <td>$<%= item.product.price %></td>
+          <td>$<%= item.product.price * item.quantity %></td>
+          <td>
+            <%= button_to '<i class="fa-regular fa-trash-can"></i>'.html_safe, user_cart_item_path(current_user, item), method: :delete, data: { confirm: 'Tem certeza?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>Seu carrinho está vazio.</p>
+<% end %>

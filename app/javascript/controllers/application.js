@@ -10,3 +10,7 @@ export { application }
 
 // const context = require.context("controllers", true, /\.js$/)
 // application.load(definitionsFromContext(context))
+
+//= require rails-ujs
+//= require turbolinks
+//= require_tree .

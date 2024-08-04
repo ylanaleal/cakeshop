@@ -8,12 +8,14 @@ export default class extends Controller {
   }
 
   increase() {
-    this.quantityTarget.value = parseInt(this.quantityTarget.value, 10) + 1
+    let quantity = parseInt(this.quantityTarget.value)
+    this.quantityTarget.value = quantity + 1
   }
 
   decrease() {
-    if (parseInt(this.quantityTarget.value, 10) > 1) {
-      this.quantityTarget.value = parseInt(this.quantityTarget.value, 10) - 1
+    let quantity = parseInt(this.quantityTarget.value)
+    if (quantity > 1) {
+      this.quantityTarget.value = quantity - 1
     }
   }
 }
