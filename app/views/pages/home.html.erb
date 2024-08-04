@@ -6,9 +6,9 @@
     <h2>Conheça nosso Kit Festa</h2>
     <p>Está pensando em organizar uma festa mas nao sabe quanto doces comprar? Nós podemos te ajudar!
         O nosso Kit Festa irá te orientar de acordo com a festa desejada! Clique no botão abaixo e descubra!</p>
-    <button class="kit-festa-button">Kit Festa</button>
+    <%= link_to 'Kit Festa', new_lead_event_path, class: 'kit-festa-button' %>
     <div class="kit-image">
-        <%= image_tag 'Logo.jpeg', alt: 'Kit Festa Image' %>
+        <%= image_tag 'Designer.jpeg', alt: 'Kit Festa Image', class: 'img-fluid' %>
     </div>
 </section>
 
