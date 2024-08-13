@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_29_224112) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_30_183248) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -139,18 +139,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_29_224112) do
     t.string "address_line_2"
     t.string "city"
     t.string "postal_code"
-    t.string "user_references"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_user_addresses_on_user_id"
   end
 
   create_table "user_payments", force: :cascade do |t|
     t.string "payment_type"
     t.string "provider"
     t.integer "account_no"
-    t.string "user_references"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_user_payments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -180,4 +182,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_29_224112) do
   add_foreign_key "orders", "payments"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "product_categories"
+  add_foreign_key "user_addresses", "users"
+  add_foreign_key "user_payments", "users"
 end
