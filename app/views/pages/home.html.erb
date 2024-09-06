@@ -1,2 +1,51 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="banner">
+    <%= image_tag("Logo.jpeg", alt: 'Home Hero', class:"home-hero" ) %>
+</div>
+
+<section class="kit-festa">
+    <h2>Conheça nosso Kit Festa</h2>
+    <p>Está pensando em organizar uma festa mas nao sabe quanto doces comprar? Nós podemos te ajudar!
+        O nosso Kit Festa irá te orientar de acordo com a festa desejada! Clique no botão abaixo e descubra!</p>
+    <%= link_to 'Kit Festa', new_lead_event_path, class: 'kit-festa-button' %>
+    <div class="kit-image">
+        <%= image_tag 'Designer.jpeg', alt: 'Kit Festa Image', class: 'img-fluid' %>
+    </div>
+</section>
+
+<div class="happy-end mb-5 mx-5">
+    <div class="header text-center">
+        <h1 class="title-home mb-0 mt-4">Nossos doces</h1>
+    </div>
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <% @products.each do |product| %>
+            <div class="row">
+                <%= link_to product_path(product), class: "card-product-link" do %>
+                <div class="card-product">
+                    <div class="photo-name d-flex align-items-center">
+                        <% if product.photo.attached? %>
+                        <%= cl_image_tag product.photo.key, crop: :fill, class: "avatar" %>
+                        <% else %>
+                        <%= image_tag "Logo.jpg", class: "avatar" %>
+                        <% end %>
+                    </div>
+                    <div class="product-details">
+                        <h3><%= product.name %></h3>
+                        <p><%= number_to_currency(product.price) %></p>
+                    </div>
+                </div>
+                <% end %>
+            </div>
+            <% end %>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Anterior</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Próximo</span>
+        </a>
+    </div>
+</div>
