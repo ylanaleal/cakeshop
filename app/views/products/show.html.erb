@@ -8,11 +8,26 @@
 <p>$<%= @product.price %></p>
 <p><%= @product.description %></p>
 
-<div data-controller="count">
-  <button id="decrease" data-action="click->count#decrease">-</button>
-  <input type="text" id="quantity" data-count-target="quantity" value="1" readonly>
-  <button id="increase" data-action="click->count#increase">+</button>
-</div>
+<%= form_with(model: @cart_item, url: user_cart_items_path(current_user), method: :post, local: true) do |form| %>
+  <div data-controller="count">
+    <button type="button" id="decrease" data-action="click->count#decrease">-</button>
+    <input type="text" id="quantity" name="cart_item[quantity]" data-count-target="quantity" value="1" readonly>
+    <button type="button" id="increase" data-action="click->count#increase">+</button>
+  </div>
 
-<button class="add-to-cart">Adicionar ao carrinho</button>
-<button class="buy-now">Comprar</button>
+  <%= form.hidden_field :product_id, value: @product.id %>
+  <%= form.submit "Adicionar ao carrinho", class: "add-to-cart" %>
+<% end %>
+
+<%= form_with(model: @cart_item, url: user_cart_items_path(current_user), method: :post, local: true, id: "buy-now-form") do |form| %>
+  <%= form.hidden_field :product_id, value: @product.id %>
+  <%= form.hidden_field :quantity, value: params[:quantity], id: "buy-now-quantity" %>
+  <%= form.submit "Comprar", class: "buy-now" %>
+<% end %>
+
+<script>
+  document.querySelector('.buy-now').addEventListener('click', function() {
+    var quantity = document.getElementById('quantity').value;
+    document.getElementById('buy-now-quantity').value = quantity;
+  });
+</script>

@@ -1,9 +1,9 @@
 class CartItemsController < ApplicationController
-  before_action :set_cart_item, only: %i[edit update]
+  before_action :set_cart_item, only: %i[destroy edit update]
   before_action :authenticate_user!
 
-  def show
-    @cart_item = CartItem.find(params[:id])
+  def index
+    @cart_items = current_user.cart_items.includes(:product)
   end
 
   def new
@@ -11,12 +11,13 @@ class CartItemsController < ApplicationController
   end
 
   def create
-    cart_item = CartItem.new(cart_item_params)
-    cart_item.user = current_user
+    cart_item = current_user.cart_items.find_or_initialize_by(product_id: cart_item_params[:product_id])
+    cart_item.quantity = (cart_item.quantity || 0) + cart_item_params[:quantity].to_i
+
     if cart_item.save
-      redirect_to root_path
+      redirect_to user_cart_items_path(current_user), notice: 'Produto adicionado ao carrinho com sucesso.'
     else
-      render :new
+      redirect_to product_path(cart_item_params[:product_id]), alert: 'Falha ao adicionar produto ao carrinho.'
     end
   end
 
@@ -25,15 +26,16 @@ class CartItemsController < ApplicationController
 
   def update
     if cart_item.update(cart_item_params)
-      redirect_to root_path
+      redirect_to user_cart_items_path(current_user), notice: 'Carrinho atualizado com sucesso.'
     else
       render :edit
     end
   end
 
   def destroy
+    @cart_item = current_user.cart_items.find(params[:id])
     @cart_item.destroy
-    redirect_to root_path
+    redirect_to user_cart_items_path(current_user), notice: 'Produto removido do carrinho.'
   end
 
   private
@@ -43,6 +45,6 @@ class CartItemsController < ApplicationController
   end
 
   def set_cart_item
-    @cart_item = CartItem.find(params[:id])
+    @cart_item = current_user.cart_items.find(params[:id])
   end
 end
